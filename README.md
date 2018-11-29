@@ -1,5 +1,5 @@
 # ITXflex
-This repo attemps to build a proof-of-concept equvalent of [ITXflex](http://www.arcanic.dk/produkter/itx-flex) for Linux.
+This repo attemps to build a proof-of-concept equivalent of [ITXflex](http://www.arcanic.dk/produkter/itx-flex) for Linux since Aalborg University seem reluctant to do acquire one themselves.
 
 ## todo
 * Document awareness
