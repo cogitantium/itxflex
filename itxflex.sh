@@ -3,11 +3,10 @@
 # rate of logging
 interval=5
 
-echo "Starting monitoring of system for written exam"
+echo "Starting monitoring of system for written exam. Stop with ctrl + c."
 
 # checks for itxflex-dir with some id appended
 countitxflexdir=`find . -type d -name "itxflex*" | wc -l`
-echo itxflexdirs: $countitxflexdir
 
 if [ "$countitxflexdir" == 1 ]; then
 	# get suffix of first dir and set as id
@@ -28,20 +27,24 @@ dir=itxflex-$id
 mkdir -p $dir
 
 # create sensible loop here
+while [ "1" ]; do
+	# timestamp with nano and timezone
+	timestamp=`date +"%F_%H-%M-%S-%N-%Z"`
 
-# timestamp with nano and timezone
-timestamp=`date +"%F_%H-%M-%S-%N-%Z"`
+	# compose identifier
+	identifier=id:$id-time:$timestamp
 
-# compose identifier
-identifier=id:$id-time:$timestamp
+	# get screenshot, omits multimonitor but stays silent
+	scrot $dir/screenshot-$identifier.png -z
 
-# get screenshot, omits multimonitor but stays silent
-scrot $dir/screenshot-$identifier.png -z
+	# get ps with hierarchal relationships
+	echo `ps axjf` > $dir/processes-$identifier.txt
 
-# get ps with hierarchal relationships
-echo `ps axjf` > $dir/processes-$identifier.txt
+	# get network config
+	echo `iw dev` > $dir/network-$identifier.txt
 
-# get network config
-echo `iw dev` > $dir/network-$identifier.txt
+	# sleep for $interval
+	sleep $interval
+done;
 
 exit 0
