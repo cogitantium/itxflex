@@ -3,15 +3,20 @@
 # rate of logging
 interval=5
 
+# logging-dir prefix
+logdir=itxflex-
+
 echo "Starting monitoring of system for written exam. Stop with ctrl + c."
 
-# checks for itxflex-dir with some id appended
-countitxflexdir=`find . -type d -name "itxflex*" | wc -l`
+# checks for logging-dir with some id appended
+countitxflexdir=`find . -type d -name "$logdir*" | wc -l`
 
 if [ "$countitxflexdir" == 1 ]; then
 	# get suffix of first dir and set as id
-	itxflexdir=`find . -type d -name "itxflex-*" | head -n1`
-	id=`echo $itxflexdir | sed -e 's/itxflex-//' | sed -e 's/.\///'`
+	existinglogdir=`find . -type d -name "$logdir*" | head -n1`
+	id=`echo $existinglogdir | sed -r 's/($logdir)*//' | sed -e 's/.\///'`
+
+	echo id is: $id
 else
 	echo "Please input your study ID for identification purposes"
 	read id
@@ -21,12 +26,11 @@ if [ -z "$id" ]; then
 	id=$defaultid
 fi
 
-dir=itxflex-$id
+dir=$logdir$id
 
 # creates dir for logging if it doesn't exist yet
 mkdir -p $dir
 
-# create sensible loop here
 while [ "1" ]; do
 	# timestamp with nano and timezone
 	timestamp=`date +"%F_%H-%M-%S-%N-%Z"`
