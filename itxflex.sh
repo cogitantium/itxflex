@@ -13,8 +13,7 @@ countitxflexdir=`find . -type d -name "$logdir*" | wc -l`
 
 if [ "$countitxflexdir" == 1 ]; then
 	# get suffix of first dir and set as id
-	existinglogdir=`find . -type d -name "$logdir*" | head -n1`
-	id=`echo $existinglogdir | sed -r 's/($logdir)*//' | sed -e 's/.\///'`
+	id=`find . -type d -name "$logdir*" | sed -r "s/($logdir)*//g" | sed -r 's/.\///g'`
 
 	echo id is: $id
 else
