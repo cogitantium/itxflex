@@ -1,6 +1,9 @@
 # ITXflex
 This repo attemps to build a proof-of-concept equivalent of [ITXflex](http://www.arcanic.dk/produkter/itx-flex) for Linux since Aalborg University seem reluctant to do acquire one themselves.
 
+## Features
+* Output filename is appended id and detailed timestamp
+
 ## todo
 * Document awareness
   * Activity measuring, if a large increase in text happens between update intervals, cheating could be happening
