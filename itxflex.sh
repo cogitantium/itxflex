@@ -32,7 +32,7 @@ mkdir -p $dir
 
 while [ "1" ]; do
 	# timestamp with nano and timezone
-	timestamp=`date +"%F_%H-%M-%S-%N-%Z"`
+	timestamp=`date +"%s"`
 
 	# compose identifier
 	identifier=id:$id-time:$timestamp
